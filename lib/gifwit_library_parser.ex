@@ -8,23 +8,22 @@ defmodule GifwitLibraryParser do
   end
 
   def download(list) do
-    per_spawn = round(Float.ceil(length(list)/20))
-    # create 20 processes to download with
-    Enum.chunk(list, per_spawn, per_spawn, [])
-    |> Enum.each(fn(files) ->
-      spawn(fn -> getFiles(files) end)
-    end)
+    list
+    |> Enum.map(&Task.async(fn -> get_file(&1) end))
+    |> Enum.map(&Task.await(&1, 10000))
   end
 
-  defp getFiles(files) do
-    Enum.each(files, fn(file) ->
-      case HTTPotion.get(elem(file, 1)) do
-        %HTTPotion.Response{ body: body, status_code: 200} ->
-          File.write!("dls/#{elem(file, 0)}", body)
-        _ ->
-          {:err, "not found"}
-      end
-    end)
+  def parse_and_download(file_path) do
+    download(parse(file_path))
+  end
+
+  defp get_file(file) do
+    case HTTPotion.get(elem(file, 1)) do
+      %HTTPotion.Response{ body: body, status_code: 200} ->
+        File.write!("downloads.nosync/#{elem(file, 0)}", body)
+      _ ->
+        {:err, "not found"}
+    end
   end
 
   defp convert_keywords_to_names(keywords) do
