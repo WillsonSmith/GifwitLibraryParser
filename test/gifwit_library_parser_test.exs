@@ -1,7 +1,6 @@
 defmodule GifwitLibraryParserTest do
   use ExUnit.Case
   doctest GifwitLibraryParser
-
   test "parse file returns list of tuples" do
     parsed_file = GifwitLibraryParser.parse("test/giftwitlibrary.test.gifwit")
     assert is_list(parsed_file)
