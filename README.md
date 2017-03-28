@@ -12,28 +12,16 @@ would become
 
 
 ## Some issues
-
-* Currently you _must_ run this will `iex -S mix`. The code just spawns a bunch of processes to download the images, but does not keep the app alive while downloading, so if you just try to run the script without an ongoing process, it will not download.
-* It spawns a bunch of processes with no batching or any real performance though, this may cause your computer to lock up
-* really isn't tested
-* it's a first draft
-* no options, hard coded to file in directory
+* testing is minimal, it should have more
 
 
-<!--**TODO: Add description**
+## API
 
-## Installation
+`### GifwitLibraryParser.parse/1`
+This accepts a file `path` and will return a list of tuples with data from your gifwit library
 
-If [available in Hex](https://hex.pm/docs/publish), the package can be installed
-by adding `gifwit_library_parser` to your list of dependencies in `mix.exs`:
+`### GifwitLibraryParser.download/2`
+This takes a file item (tuple from parser), and a downlaod directory. It will download the file to the directory
 
-```elixir
-def deps do
-  [{:gifwit_library_parser, "~> 0.1.0"}]
-end
-```
-
-Documentation can be generated with [ExDoc](https://github.com/elixir-lang/ex_doc)
-and published on [HexDocs](https://hexdocs.pm). Once published, the docs can
-be found at [https://hexdocs.pm/gifwit_library_parser](https://hexdocs.pm/gifwit_library_parser).
--->
+`### GifwitLibraryParser.parse_and_download/2`
+This takes a file `path` and a download directory. It will parse all of the files and downlaod each of them.
