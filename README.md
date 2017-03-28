@@ -1,5 +1,7 @@
 # GifwitLibraryParser
 
+[![Build Status](https://travis-ci.org/WillsonSmith/GifwitLibraryParser.svg?branch=master)](https://travis-ci.org/WillsonSmith/GifwitLibraryParser)
+
 A small elixir program to parse your [gifwit](http://gifwit.com) library and download all the gifs. Each gif will be named as all of its tags joined with `-` betwene them.
 
 ## Example:
