@@ -1,5 +1,4 @@
 defmodule GifwitLibraryParser do
-
   def parse(file_path) do
     File.read!(file_path)
     |> Poison.decode!
